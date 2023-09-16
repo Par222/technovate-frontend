@@ -1,5 +1,6 @@
 "use client"
 import Navbar from "@/components/donor/Navbar";
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -7,8 +8,21 @@ import { useState } from "react";
 export default function Donate(){
     const [checked, setChecked] = useState(false)
     const [proceed, setProceed] = useState(false)
-    const [option, setOption] = useState("")
+    const [option, setOption] = useState("Heart")
     const router = useRouter()
+    async function setOrgan(){
+        try {
+            const response = await axios.patch(
+				"https://technovate-backend.onrender.com/donor/organ", {
+                    donor_id: localStorage.getItem("user_id"),
+                    organ: option
+                }
+			);
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
 		<div>
 			<Navbar />
@@ -281,6 +295,7 @@ export default function Donate(){
 						onClick={() => {
 							if (proceed === true) {
 								console.log(option);
+                                setOrgan()
 								router.push("/donor/waitlist");
 							}
 							setProceed(true);

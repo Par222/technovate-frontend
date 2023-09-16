@@ -23,8 +23,22 @@ export default function Login(){
 		);
         console.log(response)
         if(response.status===200){
-            router.push(`/${userType.toLowerCase()}`)
+            if(userType==='Recipient'){
+                router.push('/profile')
+
+            }
+            else{
+                router.push(`/${userType.toLowerCase()}`);
+            }
+            localStorage.setItem("email", response.data.user.email);
+			localStorage.setItem("password", response.data.user.password);
+			localStorage.setItem("userType", userType.toLowerCase());
+			localStorage.setItem("user_id", response.data.user._id);
+            localStorage.setItem("name", response.data.user.fullname);
+			localStorage.setItem("age", response.data.user.age);
+			localStorage.setItem("blood_group", response.data.user.blood_group);
         }
+
     }
     return (
 		<div className="flex flex-col justify-center items-center w-full min-h-screen space-y-5">

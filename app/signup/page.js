@@ -32,12 +32,12 @@ export default function Login() {
                     router.push("/hospital")
                 }
                 else{
-                    localStorage.setItem("email", email)
-                    localStorage.setItem("password", password)
-                    localStorage.setItem("userType", userType.toLowerCase())
-                    localStorage.setItem("user_id", response.data.data._id)
                     router.push("/onboarding");
                 }
+                localStorage.setItem("email", email);
+				localStorage.setItem("password", password);
+				localStorage.setItem("userType", userType.toLowerCase());
+				localStorage.setItem("user_id", response.data.data._id);
             }
             else{
                 alert(response.data.message)

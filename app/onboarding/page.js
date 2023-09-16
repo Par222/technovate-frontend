@@ -99,6 +99,17 @@ const Onboarding = () => {
         router.push("/profile");
       }
       else{
+        try {
+          const response2 = await axios.post(
+			"https://technovate-backend.onrender.com/hospital/request", {
+        donor_id: data._id
+      })
+      console.log(response2)
+        } catch (error) {
+          console.log(error)
+        }
+
+		;
         router.push("/donor")
       }
     } catch (error) {
