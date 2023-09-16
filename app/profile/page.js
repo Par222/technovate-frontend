@@ -8,8 +8,44 @@ import axios from "axios";
 import { donors } from "@/components/donor";
 import { Niconne } from "next/font/google";
 const { default: NavBar } = require("@/components/NavBar")
-
+import { Doughnut } from "react-chartjs-2";
+import {
+    CategoryScale,
+    Chart,
+    LinearScale,
+    Tooltip,
+    Legend,
+    BarElement,
+    Title,
+    ArcElement,
+  } from "chart.js";
 const Profile=()=>{
+    Chart.register(
+        CategoryScale,
+        LinearScale,
+        Title,
+        Tooltip,
+        BarElement,
+        Legend,
+        ArcElement
+      );
+      const data = {
+        labels: [
+          'RH levels',
+          'HLA levels',
+          'Blood Group'
+        ],
+        datasets: [{
+          label: 'Comptablity',
+          data: [80, 60, 70],
+          backgroundColor: [
+            '#BF55EC',
+            '#BE90D4',
+            '#5B3256',
+          ],
+          hoverOffset: 4
+        }]
+      };
     const [modal,setModal]=useState(false)
     const [summary,setSumamry]=useState('')
      const fetchSummary=async()=>{
@@ -126,7 +162,12 @@ const Profile=()=>{
         <span className="text-sm text-white bg-blue-300 my-1 py-1 px-3 rounded-full mr-2">Andheri</span>
         <span className="text-sm text-white bg-gray-300 py-1 px-3 rounded-full mr-2">Maharashtra</span>
       </div>
+      <div className="h-[300px]">
+        <h1 className="text-sm font-semibold mx-14">Transfer Comptability :  70 %</h1>
+      <Doughnut data={data} title="Transfer Comptability"></Doughnut>
+      </div>
         </div>
+        
         </>
         </GenericModal>}
     </div>
