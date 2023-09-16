@@ -75,12 +75,8 @@ const BotDetail = (props) => {
     // update chat on new message dispatched
     socket.on('message', (message) => {
       // chat.push(message);
+      if (disabled) return;
       console.log(prompt);
-      // props.update(false, prompt, {
-      //   text: message,
-      //   time: moment().format('hh:mm A'),
-      // });
-      // setPrompt('');
       props.appendMessage(addOppMessage(message));
       setPrompt('');
     });
@@ -124,9 +120,9 @@ const BotDetail = (props) => {
     addSelfMessage(prompt);
 
     let resp = await GptHelper.checkProfanity(query);
-    // if (resp == 'Yes.') {
-    //   setdisabled(false);
-    // } else setdisabled(true);
+    if (resp == 'Yes.') {
+      setdisabled(true);
+    } else setdisabled(false);
   };
 
   return (
