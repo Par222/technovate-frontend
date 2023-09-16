@@ -1,7 +1,13 @@
+"use client"
 import Navbar from "@/components/donor/Navbar";
+import dynamic from "next/dynamic";
+import { Fragment, useEffect, useState } from "react";
+import DocViewer,{ DocViewerRenderers } from "react-doc-viewer";
+// const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
+// const DocViewer = dynamic(() => import("react-doc-viewer"), { ssr: false });
 export default function Chat(){
-	const bloodResult = "https://firebasestorage.googleapis.com/v0/b/miniproject-testpal.appspot.com/o/blood_report%2F100910424_100065099.pdf?alt=media&token=d7124aa0-b6d8-496a-9630-1f9690bcca5f"
+	const bloodResult = [{uri: "https://firebasestorage.googleapis.com/v0/b/miniproject-testpal.appspot.com/o/blood_report%2F100910424_100065099.pdf?alt=media&token=d7124aa0-b6d8-496a-9630-1f9690bcca5f"}]
 	const recipient = {
 		name: "Sarah Johnson",
 		age: 35,
@@ -13,6 +19,19 @@ export default function Chat(){
 		healthHistory: [],
 		img: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg",
 	}
+
+	// const [rendererList, setRendererList] = useState([]);
+
+	// useEffect(() => {
+	// 	import("react-doc-viewer")
+	// 		.then((module) => {
+	// 			setRendererList(module.DocViewerRenderers);
+	// 		})
+	// 		.catch((error) => {
+	// 			alert(error);
+	// 		});
+	// }, []);
+
     return (
 		<div>
 			<Navbar />
@@ -20,7 +39,10 @@ export default function Chat(){
 				<div id="title" className="text-3xl font-bold text-blue-500">
 					Matched Recipient
 				</div>
-				<div id="content" className="flex flex-row space-x-10 text-lg justify-center ">
+				<div
+					id="content"
+					className="flex flex-row space-x-10 text-lg justify-center "
+				>
 					<div className="flex flex-col space-y-5">
 						<div>
 							<img src={recipient.img} alt="" className="h-64" />
@@ -75,7 +97,21 @@ export default function Chat(){
 						</div>
 					</div>
 					<div>
-						<div id="title" className="font-semibold text-2xl"> Blood Report</div>
+						<div id="title" className="font-semibold text-2xl">
+							{" "}
+							Blood Report
+						</div>
+						<DocViewer
+							documents={bloodResult}
+							pluginRenderers={DocViewerRenderers}
+							config={{
+								header: {
+									disableHeader: true,
+									disableFileName: true,
+									retainURLParams: true,
+								},
+							}}
+						/>
 					</div>
 				</div>
 			</div>
