@@ -1,5 +1,5 @@
 "use client"
-import GenericModal from "@/components/common/GenericModal";
+import GenericModal from "@/components/GenericModal";
 import Navbar from "@/components/donor/Navbar";
 import UserDetails from "@/components/donor/UserDetails";
 import { organs } from "@/components/donor/data/organs";

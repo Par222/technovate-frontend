@@ -272,10 +272,10 @@ export default function Donate(){
 				)}
 				<div className="flex justify-center">
 					<button
-						className={`bg-blue-600 px-4 py-3 justify-center items-center text-white text-lg font-semibold rounded-md  ${
+						className={`bg-blue-600 px-4 py-3 justify-center items-center border-2 border-blue-600 text-white text-lg font-semibold rounded-md  ${
 							!checked
 								? "cursor-not-allowed bg-blue-400"
-								: "cursor-pointer hover:bg-blue-500 transition-all duration-200"
+								: "cursor-pointer hover:bg-white hover:text-blue-600 transition-all duration-200"
 						}`}
 						disabled={!checked}
 						onClick={() => {

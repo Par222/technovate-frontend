@@ -2,12 +2,11 @@
 import Navbar from "@/components/donor/Navbar";
 import dynamic from "next/dynamic";
 import { Fragment, useEffect, useState } from "react";
-import DocViewer,{ DocViewerRenderers } from "react-doc-viewer";
-// const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-// const DocViewer = dynamic(() => import("react-doc-viewer"), { ssr: false });
+const DocViewer = dynamic(() => import("react-doc-viewer"), { ssr: false });
 export default function Chat(){
-	const bloodResult = [{uri: "https://firebasestorage.googleapis.com/v0/b/miniproject-testpal.appspot.com/o/blood_report%2F100910424_100065099.pdf?alt=media&token=d7124aa0-b6d8-496a-9630-1f9690bcca5f"}]
+	const bloodResult = "https://firebasestorage.googleapis.com/v0/b/miniproject-testpal.appspot.com/o/blood_report%2F100910424_100065099.pdf?alt=media&token=d7124aa0-b6d8-496a-9630-1f9690bcca5f"
 	const recipient = {
 		name: "Sarah Johnson",
 		age: 35,
@@ -20,17 +19,17 @@ export default function Chat(){
 		img: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg",
 	}
 
-	// const [rendererList, setRendererList] = useState([]);
+	const [rendererList, setRendererList] = useState([]);
 
-	// useEffect(() => {
-	// 	import("react-doc-viewer")
-	// 		.then((module) => {
-	// 			setRendererList(module.DocViewerRenderers);
-	// 		})
-	// 		.catch((error) => {
-	// 			alert(error);
-	// 		});
-	// }, []);
+	useEffect(() => {
+		import("react-doc-viewer")
+			.then((module) => {
+				setRendererList(module.DocViewerRenderers);
+			})
+			.catch((error) => {
+				alert(error);
+			});
+	}, []);
 
     return (
 		<div>
@@ -102,14 +101,20 @@ export default function Chat(){
 							Blood Report
 						</div>
 						<DocViewer
-							documents={bloodResult}
-							pluginRenderers={DocViewerRenderers}
+							pluginRenderers={rendererList}
+							documents={[{ uri: bloodResult, fileType: "pdf" }]}
 							config={{
 								header: {
 									disableHeader: true,
 									disableFileName: true,
 									retainURLParams: true,
 								},
+								pdfZoom: {
+									defaultZoom: -0.6, // Adjust the value to fit the PDF within the width
+								},
+							}}
+							theme={{
+								disableThemeScrollbar: true,
 							}}
 						/>
 					</div>

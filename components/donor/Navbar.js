@@ -9,11 +9,11 @@ export default function Navbar(){
 					OrganConnect
 				</div>
 			</Link>
-			<div className="flex flex-row space-x-5">
+			<div className="flex flex-row space-x-5 items-center">
                 <Link href={'/donor/waitlist'}>
-                    {waitlist.length ? <button className="text-white">Check waitlist</button>:<></>}
+                    {waitlist.length ? <button className="text-white border-b-2 border-blue-600 hover:border-white px-2 transition-all duration-100 text-center">Check waitlist</button>:<></>}
                 </Link>
-				<div className="rounded-full w-10 h-10 bg-white text-center align-middle">
+				<div className="rounded-full w-10 h-10 bg-white text-center">
 					KM
 				</div>
 			</div>

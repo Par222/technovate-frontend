@@ -12,7 +12,7 @@ export default function DonorHomePage(){
 				<Grid />
 				<div className="mx-auto ">
 					<Link href={"/donor/donate"}>
-						<button className="bg-blue-600 px-5 py-4 mb-5 justify-center items-center text-white text-lg font-semibold rounded-md hover:bg-blue-500 transition-all duration-200">
+						<button className="bg-blue-600 border-2 border-blue-600 px-5 py-4 mb-5 justify-center items-center text-white text-lg font-semibold rounded-md hover:bg-white hover:text-blue-600 transition-all duration-200">
 							Click here to donate!
 						</button>
 					</Link>

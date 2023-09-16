@@ -1,17 +1,30 @@
 "use client"
+import axios from "axios"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+
 
 export default function Login(){
     const [userType, setUserType] = useState("Donor")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    function submitHandler(e){
+    const router = useRouter();
+    async function submitHandler(e){
         e.preventDefault();
         console.log(email)
         console.log(password)
-        setEmail("")
-        setPassword("")
+        const response = await axios.post(
+			`https://technovate-backend.onrender.com/${userType.toLowerCase()}/login`,
+			{
+				email: email,
+				password: password,
+			}
+		);
+        console.log(response)
+        if(response.status===200){
+            router.push(`/${userType.toLowerCase()}`)
+        }
     }
     return (
 		<div className="flex flex-col justify-center items-center w-full min-h-screen space-y-5">
