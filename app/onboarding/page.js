@@ -95,6 +95,7 @@ const Onboarding = () => {
       localStorage.setItem("name", name)
       localStorage.setItem("age", age)
       localStorage.setItem("blood_group", blood)
+      localStorage.setItem("gender", gender)
       if(userType==='recipient'){
         router.push("/profile");
       }
@@ -230,7 +231,7 @@ const Onboarding = () => {
 								<p className="mx-3">File uploaded</p>
 							</div>
 						)}
-						<button className="my-4 px-6 py-2 rounded-md text-white bg-blue-600">
+						<button className="my-4 px-6 py-2 bg-blue-600 border-2 border-blue-500 text-white font-semibold rounded-md hover:bg-white hover:text-blue-500 transition-all duration-200">
 							Submit
 						</button>
 					</div>

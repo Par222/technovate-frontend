@@ -36,6 +36,7 @@ export default function Login(){
 			localStorage.setItem("user_id", response.data.user._id);
             localStorage.setItem("name", response.data.user.fullname);
 			localStorage.setItem("age", response.data.user.age);
+			localStorage.setItem("gender", response.data.user.gender);
 			localStorage.setItem("blood_group", response.data.user.blood_group);
         }
 

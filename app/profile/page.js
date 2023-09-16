@@ -9,7 +9,38 @@ import { donors } from "@/components/donor";
 import { Niconne } from "next/font/google";
 const { default: NavBar } = require("@/components/NavBar");
 
+import { Doughnut } from "react-chartjs-2";
+import {
+	CategoryScale,
+	Chart,
+	LinearScale,
+	Tooltip,
+	Legend,
+	BarElement,
+	Title,
+	ArcElement,
+} from "chart.js";
 const Profile = () => {
+	Chart.register(
+		CategoryScale,
+		LinearScale,
+		Title,
+		Tooltip,
+		BarElement,
+		Legend,
+		ArcElement
+	);
+	const data = {
+		labels: ["RH levels", "HLA levels", "Blood Group"],
+		datasets: [
+			{
+				label: "Comptablity",
+				data: [80, 60, 70],
+				backgroundColor: ["#BF55EC", "#BE90D4", "#5B3256"],
+				hoverOffset: 4,
+			},
+		],
+	};
 	const [modal, setModal] = useState(false);
 	const [summary, setSumamry] = useState("");
 	const fetchSummary = async () => {
@@ -24,18 +55,19 @@ const Profile = () => {
 	const [details, setDetails] = useState(false);
 	const [allDonors, setAllDonors] = useState();
 	async function connectWaitList(donorId) {
-    try {
-      const response = await axios.patch(
-		"https://technovate-backend.onrender.com/recipient/request", {
-      donor_id: donorId._id,
-      recipient_id: localStorage.getItem("user_id")
-    }
-      )
-      console.log(response);
-    } catch (error) {
-      
-    }
-  }
+		try {
+			const response = await axios.patch(
+				"https://technovate-backend.onrender.com/recipient/request",
+				{
+					donor_id: donorId._id,
+					recipient_id: localStorage.getItem("user_id"),
+				}
+			);
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 	async function getDonors() {
 		try {
 			const response = await axios.get(
@@ -79,7 +111,7 @@ const Profile = () => {
 								<span className="text-blue-600  ">
 									{localStorage.getItem("age")
 										? localStorage.getItem("age")
-										: "21"}
+										: "NA"}
 								</span>
 							</p>
 							<p className=" font-medium my-1">
@@ -87,7 +119,7 @@ const Profile = () => {
 								<span className="text-blue-600  ">
 									{localStorage.getItem("gender")
 										? localStorage.getItem("gender")
-										: "Male"}
+										: "NA"}
 								</span>
 							</p>
 							<p className=" font-medium my-1">
@@ -95,17 +127,17 @@ const Profile = () => {
 								<span className="text-blue-600  ">
 									{localStorage.getItem("blood_group")
 										? localStorage.getItem("blood_group")
-										: "A+"}
+										: "NA"}
 								</span>
 							</p>
 							<div className="my-2 flex space-x-3">
 								<button
-									className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md my-2"
+									className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md my-2  border-2 border-blue-500 font-semibold  hover:bg-white hover:text-blue-500 transition-all duration-200"
 									onClick={() => setModal(true)}
 								>
 									Check Blood Report
 								</button>
-								<button className="bg-green-500 text-white text-sm py-1 px-4 rounded-md my-2">
+								<button className="bg-green-500 text-white text-sm py-1 px-4 rounded-md my-2  border-2 border-green-500 font-semibold  hover:bg-white hover:text-green-500 transition-all duration-200">
 									Edit Details
 								</button>
 							</div>
@@ -163,7 +195,7 @@ const Profile = () => {
 							className="focus:outline-none border-b-2 border-blue-600 my-1 mx-2 py-2 px-0 w-[40%] rounded-sm"
 							placeholder="Search for an organ"
 						></input>
-						<button className="bg-blue-600 text-white py-1 px-5 rounded-md">
+						<button className="bg-blue-600 text-white py-1 px-5 rounded-md border-2 border-blue-600 font-semibold  hover:bg-white hover:text-blue-600 transition-all duration-200">
 							Search
 						</button>
 					</form>
@@ -176,7 +208,7 @@ const Profile = () => {
 							allDonors.map((d) => (
 								<div className="flex flex-col items-center mx-2 shadow-md">
 									<img
-										src={d.img?d.img:"profile.png"}
+										src={d.img ? d.img : "profile.png"}
 										className="h-[250px] rounded-t-md"
 									></img>
 									<p className="text-white bg-blue-600 w-full py-2 px-4 text-center font-semibold ">
@@ -195,7 +227,7 @@ const Profile = () => {
 										<p className=" font-medium my-1">
 											Organ:{" "}
 											<span className="text-blue-600  ">
-												{d.organ?d.organ:"NA"}
+												{d.organ ? d.organ : "NA"}
 											</span>
 										</p>
 										<p className=" font-medium my-1">
@@ -206,18 +238,20 @@ const Profile = () => {
 										</p>
 										<div className=" flex space-x-3">
 											<button
-												className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md my-2"
+												className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md my-2  border-2 border-blue-600 font-semibold  hover:bg-white hover:text-blue-500 transition-all duration-200"
 												onClick={() => {
 													setDetails(true);
 													setDonor(d);
-                          
 												}}
 											>
 												Details
 											</button>
-											<button className="bg-green-500 text-white text-sm py-1 px-4 rounded-md my-2" onClick={() => {
-                        connectWaitList(d);
-                      }}>
+											<button
+												className="bg-green-500 text-white text-sm py-1 px-4 rounded-md my-2  border-2 border-green-500 font-semibold  hover:bg-white hover:text-green-500 transition-all duration-200"
+												onClick={() => {
+													connectWaitList(d);
+												}}
+											>
 												Connect
 											</button>
 										</div>
@@ -236,7 +270,11 @@ const Profile = () => {
 								<div className="flex">
 									<div>
 										<img
-											src={donor.img?donor.img:"profile.png"}
+											src={
+												donor.img
+													? donor.img
+													: "profile.png"
+											}
 											className="my-5 mx-10 w-[300px] rounded-md"
 										></img>
 									</div>
@@ -254,13 +292,17 @@ const Profile = () => {
 											<p className=" font-medium my-1">
 												Weight:{" "}
 												<span className="text-blue-600  ">
-													{donor.weight?donor.weight:"75" + " kg"}
+													{donor.weight
+														? donor.weight
+														: "75" + " kg"}
 												</span>
 											</p>
 											<p className=" font-medium my-1">
 												Height:{" "}
 												<span className="text-blue-600  ">
-													{donor.height?donor.height:"170" + " cm"}
+													{donor.height
+														? donor.height
+														: "170" + " cm"}
 												</span>
 											</p>
 											<p className=" font-medium my-1">
@@ -288,18 +330,22 @@ const Profile = () => {
 									Medical conditions
 								</div>
 								<div className="mx-10">
-									{donor.healthHistory?donor.healthHistory.map((d) => (
-										<>
-											<span className="font-medium">
-												{d}
-											</span>
-											<p className="text-sm my-1 italic">
-												{
-													"Depression is a mood disorder that causes a persistent feeling of sadness and loss of interest. Also called major depressive disorder or clinical depression, it affects how you feel, think and behave and can lead to a variety of emotional and physical problems"
-												}
-											</p>
-										</>
-									)):(<></>)}
+									{donor.healthHistory ? (
+										donor.healthHistory.map((d) => (
+											<>
+												<span className="font-medium">
+													{d}
+												</span>
+												<p className="text-sm my-1 italic">
+													{
+														"Depression is a mood disorder that causes a persistent feeling of sadness and loss of interest. Also called major depressive disorder or clinical depression, it affects how you feel, think and behave and can lead to a variety of emotional and physical problems"
+													}
+												</p>
+											</>
+										))
+									) : (
+										<></>
+									)}
 									<div className="flex  items-center">
 										<span className="text-sm text-white bg-blue-300 my-1 py-1 px-3 rounded-full mr-2">
 											Andheri
@@ -308,6 +354,15 @@ const Profile = () => {
 											Maharashtra
 										</span>
 									</div>
+								</div>
+								<div className="h-[300px]">
+									<h1 className="text-sm font-semibold mx-14">
+										Transfer Comptability : 70 %
+									</h1>
+									<Doughnut
+										data={data}
+										title="Transfer Comptability"
+									></Doughnut>
 								</div>
 							</>
 						</GenericModal>

@@ -12,7 +12,6 @@ const AnyReactComponent = (props) => {
         width={30}
         // onClick={() => props.onTouch(props.index)}
       />
-      <p className="text-4xl">{"HELLO"}</p>
       {props.text && (
         <div className="text-sm text-black  py-3 px-6 w-[100px] h-fit absolute inset-0 z-50 bg-white">
           {props.t}
@@ -44,8 +43,8 @@ const SimpleMap = (props) => {
           <AnyReactComponent
           key={i}
           index={i}
-          lat={h.location.lat}
-          lng={h.location.lng}
+          lat={parseFloat(h.location.lat)}
+          lng={parseFloat(h.location.lng)}
           t={h.name}
           text={i === text}
           onTouch={textHandler}
