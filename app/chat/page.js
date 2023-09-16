@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import SocketIOClient from 'socket.io-client';
+import GptHelper from '@/components/GptHelper';
 
 const Chat = () => {
   // State to store the messages
@@ -38,10 +39,11 @@ const Chat = () => {
     if (socket) return () => socket.disconnect();
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     // Send the message to the server
     sock.emit('message', currentMessage);
     console.log(currentMessage);
+    await GptHelper.checkProfanity(currentMessage);
     // Clear the currentMessage state
     setCurrentMessage('');
   };
@@ -59,6 +61,12 @@ const Chat = () => {
         value={currentMessage}
         onChange={(e) => setCurrentMessage(e.target.value)}
       />
+
+      <li>
+        {chat.map((el) => (
+          <li>{el}</li>
+        ))}
+      </li>
 
       {/* Button to submit the new message */}
       <button onClick={sendMessage}>Send</button>
