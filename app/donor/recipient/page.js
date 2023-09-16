@@ -83,7 +83,7 @@ export default function Chat(){
 								<span className="text-blue-600  ">O+</span>
 							</p>
 							<button
-								className="mt-7 bg-blue-600 text-white py-2 px-4 rounded-md"
+								className="mt-7 bg-blue-600 text-white py-2 px-4 rounded-md my-2  border-2 border-blue-600 font-semibold  hover:bg-white hover:text-blue-600 transition-all duration-200"
 								onClick={() => setShowBot(true)}
 							>
 								Start Chat

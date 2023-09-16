@@ -4,14 +4,30 @@ import Navbar from "@/components/donor/Navbar";
 import UserDetails from "@/components/donor/UserDetails";
 import { organs } from "@/components/donor/data/organs";
 import { waitlist } from "@/components/donor/data/waitlist";
+import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
 
 export default function Waitlist(){
     const [showModal, setShowModal] = useState(false)
     const [recipient, setRecipient] = useState()
+    const [waitlist, setWaitlist] = useState([])
+    const [organs, setOrgan] = useState()
     function closeHandler(){
         setShowModal(false)
     }
+    async function getWaitlists(){
+        const response = await axios.post(
+			"https://technovate-backend.onrender.com/donor/recipientList",{
+                donor_id: localStorage.getItem("user_id")
+            }
+		);
+        setOrgan(response.data.data.organ)
+        setWaitlist(response.data.data.organQueue)
+    }
+    useEffect(() => {
+        getWaitlists()
+    }, [])
     return (
 		<div>
 			<Navbar />
@@ -27,7 +43,7 @@ export default function Waitlist(){
 							<div className="flex">
 								<div>
 									<img
-										src={recipient.img}
+										src={recipient.img?recipient.img:"./profile.png"}
 										className="my-5 mx-10 w-[300px] rounded-md"
 									></img>
 								</div>
@@ -39,19 +55,19 @@ export default function Waitlist(){
 										<p className="text-base font-medium my-1">
 											Name:{" "}
 											<span className="text-blue-600  ">
-												{recipient.name}
+												{recipient.fullname}
 											</span>
 										</p>
 										<p className=" font-medium my-1">
 											Weight:{" "}
 											<span className="text-blue-600  ">
-												{recipient.weight}
+												{recipient.weight?recipient.weight:"70" + " kg"}
 											</span>
 										</p>
 										<p className=" font-medium my-1">
 											Height:{" "}
 											<span className="text-blue-600  ">
-												{recipient.height + " cm"}
+												{recipient.height?recipient.height:"175" + " cm"}
 											</span>
 										</p>
 										<p className=" font-medium my-1">
@@ -63,13 +79,13 @@ export default function Waitlist(){
 										<p className=" font-medium my-1">
 											Organ:{" "}
 											<span className="text-blue-600  ">
-												{recipient.organ}
+												{organs}
 											</span>
 										</p>
 										<p className=" font-medium my-1">
 											Blood Group:{" "}
 											<span className="text-blue-600  ">
-												{recipient.bloodGroup}
+												{recipient.blood_group}
 											</span>
 										</p>
 									</div>
@@ -79,7 +95,7 @@ export default function Waitlist(){
 								Medical conditions
 							</div>
 							<div className="mx-10">
-								{recipient.healthHistory.length > 0 ? (
+								{recipient.healthHistory ? (
 									<div>
 										{recipient.healthHistory.map((d) => (
 											<>
@@ -95,9 +111,7 @@ export default function Waitlist(){
 										))}
 									</div>
 								) : (
-									<div className="font-medium">
-                                        N/A
-                                    </div>
+									<div className="font-medium">N/A</div>
 								)}
 								<div className="flex  items-center">
 									<span className="text-sm text-white bg-blue-300 my-1 py-1 px-3 rounded-full mr-2">
@@ -115,42 +129,31 @@ export default function Waitlist(){
 					Pending Waitlist
 				</div>
 				<div>
-					{organs.map((organ, index) => {
-						const filteredList = waitlist.filter((p) => {
-							return p.organ === organ;
-						});
-						return (
-							<div>
-								{filteredList.length > 0 ? (
-									<div className="my-5 space-y-2">
-										<div
-											id="title"
-											className="text-xl font-semibold"
-										>
-											{organ}
-										</div>
-										<div className="flex flex-row space-x-5 px-10">
-											{filteredList.map((p, index) => {
-												return (
-													<UserDetails
-														userDetails={p}
-														setShowModal={
-															setShowModal
-														}
-														setRecipient={
-															setRecipient
-														}
-													/>
-												);
-											})}
-										</div>
-									</div>
-								) : (
-									<></>
-								)}
+					<div>
+						{waitlist.length > 0 ? (
+							<div className="my-5 space-y-2">
+								<div
+									id="title"
+									className="text-xl font-semibold"
+								>
+									{organs}
+								</div>
+								<div className="flex flex-row space-x-5 px-10">
+									{waitlist.map((p, index) => {
+										return (
+											<UserDetails
+												userDetails={p}
+												setShowModal={setShowModal}
+												setRecipient={setRecipient}
+											/>
+										);
+									})}
+								</div>
 							</div>
-						);
-					})}
+						) : (
+							<></>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

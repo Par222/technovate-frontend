@@ -2,6 +2,7 @@
 import BotPause from "@/public/bot/botIcons/BotPause";
 import BotPlay from "@/public/bot/botIcons/BotPlay";
 import React, { useState, useEffect } from "react";
+import "regenerator-runtime/runtime";
 import { useSpeechSynthesis } from 'react-speech-kit'
 
 const BotMessages = (props) => {
