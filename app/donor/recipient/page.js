@@ -31,6 +31,8 @@ export default function Chat(){
 			});
 	}, []);
 
+	const [showBot, setShowBot] = useState(false);
+
     return (
 		<div>
 			<Navbar />
@@ -40,59 +42,52 @@ export default function Chat(){
 				</div>
 				<div
 					id="content"
-					className="flex flex-row space-x-10 text-lg justify-center "
+					className="flex flex-row space-x-10 text-lg"
 				>
-					<div className="flex flex-col space-y-5">
-						<div>
-							<img src={recipient.img} alt="" className="h-64" />
-						</div>
-						<div className="flex flex-col">
-							<div>
-								<span className="font-semibold">Name:</span>{" "}
-								{recipient.name}
-							</div>
-							<div>
-								<span className="font-semibold">Age:</span>{" "}
-								{recipient.age}
-							</div>
-							<div>
-								<span className="font-semibold">Gender:</span>{" "}
-								{recipient.gender}
-							</div>
-							<div>
-								<span className="font-semibold">Height:</span>{" "}
-								{recipient.height} cm
-							</div>
-							<div>
-								<span className="font-semibold">Weight:</span>{" "}
-								{recipient.weight} kg
-							</div>
-							<div>
-								<span className="font-semibold">
-									Blood Group:
-								</span>{" "}
-								{recipient.bloodGroup}
-							</div>
-							<div>
-								<span className="font-semibold">Organ:</span>{" "}
-								{recipient.organ}
-							</div>
-							<div className="c">
-								<span className="font-semibold">
-									Health History:
+					<div className="mx-5 shadow-md flex w-[50%] items-center">
+						<img
+							className="w-[350px] h-[350px]"
+							src="https://profilemagazine.com/wp-content/uploads/2022/12/Kenneth-Miles-First-Fidelity-Bank-thumbnail.jpg"
+						></img>
+						<div className="mx-4">
+							<p className="font-medium my-1">
+								Name:{" "}
+								<span className="text-blue-600  ">
+									{"Arun Mehta"}
 								</span>
-								{recipient.healthHistory.length > 0 ? (
-									<div>
-										{recipient.healthHistory.map(
-											(health, index) => {
-												return <div>{health}</div>;
-											}
-										)}
-									</div>
-								) : (
-									<div>N/A</div>
-								)}
-							</div>
+							</p>
+							<p className=" font-medium my-1">
+								Weight:{" "}
+								<span className="text-blue-600  ">
+									{"84 kg"}
+								</span>
+							</p>
+							<p className=" font-medium my-1">
+								Height:{" "}
+								<span className="text-blue-600  ">
+									{"178 cm"}
+								</span>
+							</p>
+							<p className=" font-medium my-1">
+								Age:{" "}
+								<span className="text-blue-600  ">{"39"}</span>
+							</p>
+							<p className=" font-medium my-1">
+								Organ:{" "}
+								<span className="text-blue-600  ">
+									{"Kidney"}
+								</span>
+							</p>
+							<p className=" font-medium my-1">
+								Blood Group:{" "}
+								<span className="text-blue-600  ">O+</span>
+							</p>
+							<button
+								className="mt-7 bg-blue-600 text-white py-2 px-4 rounded-md"
+								onClick={() => setShowBot(true)}
+							>
+								Start Chat
+							</button>
 						</div>
 					</div>
 					<div>

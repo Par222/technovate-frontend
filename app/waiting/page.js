@@ -16,6 +16,7 @@ const Page = () => {
     <>
       <NavBar></NavBar>
       <div>
+        
         <>
           <h1 className="mx-5 my-3 font-bold text-2xl">Matched Donor</h1>
           <div className="flex space-x-6">
