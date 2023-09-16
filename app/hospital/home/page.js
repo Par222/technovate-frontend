@@ -99,7 +99,7 @@ export default function home() {
               </div>
             ))}
           </div>
-          <div className="pl-4 pt-3 font-bold">Appointment Requests</div>
+          <div className="pl-4 pt-3 font-bold">Upcoming Appointments</div>
           <div className="ml-4 p-2 flex  justify-start gap-4 flex-wrap">
             {[1, 1].map((el) => (
               <div className="container bg-green-400 px-3 py-3 w-1/5 text-sm rounded-lg shadow-md">

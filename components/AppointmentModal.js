@@ -15,7 +15,7 @@ const AppointmentModal = (props) => {
             className="bg-green-500 px-4 py-2 rounded-md"
             onClick={props.appointmentHandler}
           >
-            Book Appointment
+            Confirm Appointment
           </button>
           <button
             onClick={props.appointmentDeclineHandler}

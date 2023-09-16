@@ -20,7 +20,7 @@ const Chat = () => {
 
   useEffect(() => {
     // connect to socket server
-    const socket = SocketIOClient.connect('http://localhost:5000');
+    const socket = SocketIOClient.connect('https://chat-app-3hbu.onrender.com');
     // log socket connection
     socket.on('connect', () => {
       console.log('SOCKET CONNECTED!', socket.id);

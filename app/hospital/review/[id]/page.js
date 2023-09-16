@@ -6,6 +6,7 @@ import NavBar from '@/components/Navbar';
 import DeclineModal from '@/components/DeclineModal';
 export default function Review() {
   const [modal, setModal] = useState(false);
+  const [decision, setD] = useState('wait');
   return (
     <>
       {modal && (
@@ -53,34 +54,36 @@ export default function Review() {
               <div className="font-bold text-lg">Donor's Details</div>
               <div className="w-full m-3">
                 <table>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Name: </td>
-                    <td className="p-2 mr-2">Jai Patel</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Age: </td>
-                    <td className="p-2 mr-2">19</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Gender: </td>
-                    <td className="p-2 mr-2">Male</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Weight: </td>
-                    <td className="p-2 mr-2">19</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Blood Group: </td>
-                    <td className="p-2 mr-2">A+</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Organ: </td>
-                    <td className="p-2 mr-2">Lungs</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Weight: </td>
-                    <td className="p-2 mr-2">70</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Name: </td>
+                      <td className="p-2 mr-2">Jai Patel</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Age: </td>
+                      <td className="p-2 mr-2">19</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Gender: </td>
+                      <td className="p-2 mr-2">Male</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Weight: </td>
+                      <td className="p-2 mr-2">19</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Blood Group: </td>
+                      <td className="p-2 mr-2">A+</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Organ: </td>
+                      <td className="p-2 mr-2">Lungs</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Weight: </td>
+                      <td className="p-2 mr-2">70</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <div className="font-bold text-lg mt-4">Health Records</div>
@@ -96,34 +99,36 @@ export default function Review() {
               <div className="font-bold text-lg">Recipient's Details</div>
               <div className="w-full m-3">
                 <table>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Name: </td>
-                    <td className="p-2 mr-2">Paras Mehta</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Age: </td>
-                    <td className="p-2 mr-2">19</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Gender: </td>
-                    <td className="p-2 mr-2">Male</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Weight: </td>
-                    <td className="p-2 mr-2">19</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Blood Group: </td>
-                    <td className="p-2 mr-2">A+</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Organ: </td>
-                    <td className="p-2 mr-2">Lungs</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 mr-2 font-bold">Weight: </td>
-                    <td className="p-2 mr-2">70</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Name: </td>
+                      <td className="p-2 mr-2">Paras Mehta</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Age: </td>
+                      <td className="p-2 mr-2">19</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Gender: </td>
+                      <td className="p-2 mr-2">Male</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Weight: </td>
+                      <td className="p-2 mr-2">19</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Blood Group: </td>
+                      <td className="p-2 mr-2">A+</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Organ: </td>
+                      <td className="p-2 mr-2">Lungs</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2 mr-2 font-bold">Weight: </td>
+                      <td className="p-2 mr-2">70</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <div className="font-bold text-lg mt-6">Health Records</div>
@@ -137,15 +142,22 @@ export default function Review() {
             </div>
           </div>
           <div className="p-5 flex text-white justify-center gap-4">
-            <button className="bg-green-500 px-4 py-2 rounded-md">
-              Approve Request
-            </button>
-            <button
-              onClick={() => setModal(true)}
-              className="bg-red-500 px-4 py-2 rounded-md"
-            >
-              Decline
-            </button>
+            {(decision == 'wait' || decision == 'approved') && (
+              <button
+                className="bg-green-500 px-4 py-2 rounded-md"
+                onClick={() => setD('approved')}
+              >
+                {decision == 'wait' ? 'Approve Request' : 'Approved'}
+              </button>
+            )}
+            {(decision == 'wait' || decision == 'declined') && (
+              <button
+                onClick={() => setModal(true)}
+                className="bg-red-500 px-4 py-2 rounded-md"
+              >
+                Decline
+              </button>
+            )}
           </div>
         </div>
       </div>
