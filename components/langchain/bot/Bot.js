@@ -4,6 +4,7 @@ import BotDetail from "./BotDetail";
 import BotMessages from "./BotMessages";
 import BotIcon from "@/public/bot/botIcons/BotIcon";
 import CloseIcon from "@/public/bot/CloseIcon";
+import "regenerator-runtime/runtime";
 
 const Bot = ({ showBot, setShowBot }) => {
   

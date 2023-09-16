@@ -114,46 +114,7 @@ const Page = () => {
       </div>
             </div>
         </>
-        {waitList && <>
-        <GenericModal title="Waiting List" textpos="Okay" textneg="Cancel" closeHandler={()=>setWaitingList(false)}>
-        {donor && donors.map((d) => (
-                      <>
-                        <div className="flex mx-5  w-[90%]  text-xs shadow-md my-2 font-medium items-center py-1 px-5">
-                        <div className="w-[10%]">
-                        <img
-                            src={d.img}
-                            className="w-[50px] h-[50px] rounded-full"
-                          ></img>
-                        </div>
-                         <div className="flex w-[70%]"> 
-                         <span className="mx-4 w-[30%]">{d.name}</span>
-                    
-                         <span className="mx-3 w-[20%]">{donor.organ}</span>
-                         </div>
-    
-                        </div>
-                      </>
-                    ))}
-                     <div className="flex mx-5  w-[90%]   text-xs shadow-md my-2 font-medium items-center py-1 px-5 bg-green-500 text-white">
-                         <div className="w-[10%]">
-                         <img
-                            src={"https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"}
-                            className="w-[50px] h-[50px] rounded-full"
-                          ></img>
-                         </div>
-                         <div className="flex items-center   w-[70%]">
-                         <span className="mx-4 w-[30%]">{"You"}</span>
-                    
-                    <span className="mx-3 w-[20%]">{donor.organ}</span>
-                 <div className="flex justify-end w-[50%]">
-                 <button className="bg-green-200 text-green-800 py-1 px-5 rounded-sm">Withdraw</button>
-                 </div>
-                         </div>
-                        </div>
-
-        </GenericModal>
-        </>}
-       
+        {<Bot showBot={showBot} setShowBot={setShowBot}></Bot>}
       </div>
     </>
   );

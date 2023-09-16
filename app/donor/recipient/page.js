@@ -1,7 +1,9 @@
 "use client"
+import Bot from "@/components/bot/Bot";
 import Navbar from "@/components/donor/Navbar";
 import dynamic from "next/dynamic";
 import { Fragment, useEffect, useState } from "react";
+import "regenerator-runtime/runtime";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const DocViewer = dynamic(() => import("react-doc-viewer"), { ssr: false });
@@ -36,14 +38,12 @@ export default function Chat(){
     return (
 		<div>
 			<Navbar />
+			{<Bot showBot={showBot} setShowBot={setShowBot}></Bot>}
 			<div id="content" className="my-5 px-10 space-y-5 w-full">
 				<div id="title" className="text-3xl font-bold text-blue-500">
 					Matched Recipient
 				</div>
-				<div
-					id="content"
-					className="flex flex-row space-x-10 text-lg"
-				>
+				<div id="content" className="flex flex-row space-x-10 text-lg">
 					<div className="mx-5 shadow-md flex w-[50%] items-center">
 						<img
 							className="w-[350px] h-[350px]"
