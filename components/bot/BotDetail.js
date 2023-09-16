@@ -45,7 +45,7 @@ const BotDetail = (props) => {
 
   const addSelfMessage = (message) => {
     const ele = (
-      <div className="text-left p-1  mr-auto bg-blue-200 rounded-md">
+      <div className="text-left p-1  ml-auto block w-3/5 bg-blue-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -55,7 +55,7 @@ const BotDetail = (props) => {
 
   const addOppMessage = (message) => {
     const ele = (
-      <div className="text-right p-1 ml-2 bg-green-200 rounded-md">
+      <div className="text-left p-1 mr-auto block w-3/5 bg-green-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -124,9 +124,9 @@ const BotDetail = (props) => {
     addSelfMessage(prompt);
 
     let resp = await GptHelper.checkProfanity(query);
-    if (resp == 'Yes.') {
-      setdisabled(false);
-    } else setdisabled(true);
+    // if (resp == 'Yes.') {
+    //   setdisabled(false);
+    // } else setdisabled(true);
   };
 
   return (
