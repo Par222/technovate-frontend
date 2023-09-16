@@ -61,10 +61,10 @@ const Bot = ({ showBot, setShowBot, person }) => {
             <div className="w-full p-3 absolute max-h-[65%] overflow-y-auto">
               {msgArray.length > 0 &&
                 msgArray.map((msg) => (
-                  <ul className=" py-3 my-2 w-full ">
+                  <div className="my-3">
                     {msg}
                     {/* <BotMessages {...msg} /> */}
-                  </ul>
+                  </div>
                 ))}
             </div>
             <div className=" absolute bottom-0 w-full ">

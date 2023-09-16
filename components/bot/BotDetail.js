@@ -37,13 +37,15 @@ const BotDetail = (props) => {
 
   const [connected, setConnected] = useState(false);
 
+  const [disabled, setdisabled] = useState(false);
+
   // init chat and message
 
   const [sock, setsock] = useState();
 
   const addSelfMessage = (message) => {
     const ele = (
-      <div className="text-left p-2 mr-2 mr-auto bg-blue-200 rounded-md">
+      <div className="text-left p-1  mr-auto bg-blue-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -53,7 +55,7 @@ const BotDetail = (props) => {
 
   const addOppMessage = (message) => {
     const ele = (
-      <div className="text-right p-2 ml-2 bg-green-200 rounded-md">
+      <div className="text-right p-1 ml-2 bg-green-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -115,59 +117,67 @@ const BotDetail = (props) => {
 
     props.appendMessage(addSelfMessage(prompt));
     let query = prompt;
-    // setPrompt('');
+    setPrompt('');
 
     // props.set(query, false);
     sock.emit('message', query);
     addSelfMessage(prompt);
 
-    console.log(query);
     let resp = await GptHelper.checkProfanity(query);
+    if (resp == 'Yes.') {
+      setdisabled(false);
+    } else setdisabled(true);
   };
 
   return (
     <div className="">
-      <div className="px-4 flex items-center space-x-2">
-        <div>
-          <input
-            onChange={(e) => setPrompt(e.target.value)}
-            value={prompt}
-            className="py-1 px-4 border-[1px] focus:outline-none text-sm flex text-black flex-wrap border-tertiary-400 w-full rounded-r-full rounded-l-full"
-          />
+      {disabled ? (
+        <div className="px-4 flex items-center space-x-2 font-medium text-center text-red-500">
+          The chat has been blocked over illegal concerns
         </div>
-        <button
-          className={` text-black font-display
+      ) : (
+        <div className="px-4 flex items-center space-x-2">
+          <div>
+            <input
+              onChange={(e) => setPrompt(e.target.value)}
+              value={prompt}
+              className="py-1 px-4 border-[1px] focus:outline-none text-sm flex text-black flex-wrap border-tertiary-400 w-full rounded-r-full rounded-l-full"
+            />
+          </div>
+          <button
+            className={` text-black font-display
     text-sm  px-2 py-1 rounded-full ml-1 h-9 w-9 lg:mb-0
       hover:bg-red-100
     }`}
-          onClick={submitHandler}
-          disabled={prompt == ''}
-        >
-          <MessengerSendIcon color={'#fff'} />
-        </button>
-        {!isListening && (
-          <button
-            onClick={() => {
-              setisListening(true);
-              resetTranscript();
-            }}
+            onClick={submitHandler}
+            disabled={prompt == ''}
           >
-            {' '}
-            <BotMic />
+            <MessengerSendIcon color={'#fff'} />
           </button>
-        )}
-        {isListening && (
-          <button
-            onClick={() => {
-              SpeechRecognition.stopListening();
-              setisListening(false);
-            }}
-          >
-            {' '}
-            <BotMicOn />
-          </button>
-        )}
-      </div>
+          {!isListening && (
+            <button
+              onClick={() => {
+                setisListening(true);
+                resetTranscript();
+              }}
+            >
+              {' '}
+              <BotMic />
+            </button>
+          )}
+          {isListening && (
+            <button
+              onClick={() => {
+                SpeechRecognition.stopListening();
+                setisListening(false);
+              }}
+            >
+              {' '}
+              <BotMicOn />
+            </button>
+          )}
+        </div>
+      )}
       <div className="py-3"></div>
     </div>
   );
