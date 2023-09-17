@@ -275,7 +275,7 @@ const Profile = () => {
 													? donor.img
 													: "profile.png"
 											}
-											className="my-5 mx-10 w-[300px] rounded-md"
+											className="my-5 mx-10 w-[200px] rounded-md"
 										></img>
 									</div>
 									<div>
