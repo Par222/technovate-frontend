@@ -1,16 +1,16 @@
-"use client";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import MessengerSendIcon from "../../public/bot/MessengerSendIcon";
-import BotMicOn from "../../public/bot/botIcons/BotMicOn";
-import BotMic from "../../public/bot/botIcons/BotMic";
-import moment from "moment";
-import SocketIOClient from "socket.io-client";
-import GptHelper from "@/components/GptHelper";
-import "regenerator-runtime/runtime";
+'use client';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import MessengerSendIcon from '../../public/bot/MessengerSendIcon';
+import BotMicOn from '../../public/bot/botIcons/BotMicOn';
+import BotMic from '../../public/bot/botIcons/BotMic';
+import moment from 'moment';
+import SocketIOClient from 'socket.io-client';
+import GptHelper from '@/components/GptHelper';
+import 'regenerator-runtime/runtime';
 import SpeechRecognition, {
-	useSpeechRecognition,
-} from "react-speech-recognition";
+  useSpeechRecognition,
+} from 'react-speech-recognition';
 
 const BotDetail = (props) => {
   const {
@@ -121,7 +121,7 @@ const BotDetail = (props) => {
     addSelfMessage(prompt);
 
     let resp = await GptHelper.checkProfanity(query);
-    if (resp == 'Yes.') {
+    if (resp?.content == 'Yes.' || resp?.content == 'Yes') {
       setdisabled(true);
     } else setdisabled(false);
   };
@@ -146,38 +146,38 @@ const BotDetail = (props) => {
     text-sm  px-2 py-1 rounded-full ml-1 h-9 w-9 lg:mb-0
       hover:bg-red-100
     }`}
-						onClick={submitHandler}
-						disabled={prompt == ""}
-					>
-						<MessengerSendIcon color={"#fff"} />
-					</button>
-					{!isListening && (
-						<button
-							onClick={() => {
-								setisListening(true);
-								resetTranscript();
-							}}
-						>
-							{" "}
-							<BotMic />
-						</button>
-					)}
-					{isListening && (
-						<button
-							onClick={() => {
-								SpeechRecognition.stopListening();
-								setisListening(false);
-							}}
-						>
-							{" "}
-							<BotMicOn />
-						</button>
-					)}
-				</div>
-			)}
-			<div className="py-3"></div>
-		</div>
-	);
+            onClick={submitHandler}
+            disabled={prompt == ''}
+          >
+            <MessengerSendIcon color={'#fff'} />
+          </button>
+          {!isListening && (
+            <button
+              onClick={() => {
+                setisListening(true);
+                resetTranscript();
+              }}
+            >
+              {' '}
+              <BotMic />
+            </button>
+          )}
+          {isListening && (
+            <button
+              onClick={() => {
+                SpeechRecognition.stopListening();
+                setisListening(false);
+              }}
+            >
+              {' '}
+              <BotMicOn />
+            </button>
+          )}
+        </div>
+      )}
+      <div className="py-3"></div>
+    </div>
+  );
 };
 
 export default BotDetail;

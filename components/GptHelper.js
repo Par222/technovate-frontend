@@ -16,7 +16,7 @@ GptHelper.checkProfanity = async (prompt) => {
     ],
   });
   console.log(chatCompletion.choices[0].message);
-    chatCompletion();
+  return chatCompletion.choices[0].message;
 };
 
 export default GptHelper;
