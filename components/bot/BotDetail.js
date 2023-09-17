@@ -7,6 +7,7 @@ import BotMic from '../../public/bot/botIcons/BotMic';
 import moment from 'moment';
 import SocketIOClient from 'socket.io-client';
 import GptHelper from '@/components/GptHelper';
+import 'regenerator-runtime/runtime';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
@@ -45,7 +46,7 @@ const BotDetail = (props) => {
 
   const addSelfMessage = (message) => {
     const ele = (
-      <div className="text-left p-1  mr-auto bg-blue-200 rounded-md">
+      <div className="text-left p-1  ml-auto block w-3/5 bg-blue-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -55,7 +56,7 @@ const BotDetail = (props) => {
 
   const addOppMessage = (message) => {
     const ele = (
-      <div className="text-right p-1 ml-2 bg-green-200 rounded-md">
+      <div className="text-left p-1 mr-auto block w-3/5 bg-green-200 rounded-md">
         <div>{message}</div>
       </div>
     );
@@ -75,12 +76,8 @@ const BotDetail = (props) => {
     // update chat on new message dispatched
     socket.on('message', (message) => {
       // chat.push(message);
+      if (disabled) return;
       console.log(prompt);
-      // props.update(false, prompt, {
-      //   text: message,
-      //   time: moment().format('hh:mm A'),
-      // });
-      // setPrompt('');
       props.appendMessage(addOppMessage(message));
       setPrompt('');
     });
@@ -124,9 +121,9 @@ const BotDetail = (props) => {
     addSelfMessage(prompt);
 
     let resp = await GptHelper.checkProfanity(query);
-    if (resp == 'Yes.') {
-      setdisabled(false);
-    } else setdisabled(true);
+    if (resp?.content == 'Yes.' || resp?.content == 'Yes') {
+      setdisabled(true);
+    } else setdisabled(false);
   };
 
   return (
