@@ -1,7 +1,6 @@
 "use client";
 import "regenerator-runtime/runtime";
 import { donors } from "@/components/donor";
-import NavBar from "@/components/Navbar";
 import Bot from "@/components/bot/Bot";
 import { useState, useEffect } from "react";
 import GenericModal from "@/components/GenericModal";

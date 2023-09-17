@@ -3,7 +3,7 @@ export default function UserDetails({userDetails, setShowModal, setRecipient}){
     return (
 		<div className="flex flex-col border-2 border-black pb-2 rounded-md">
 			<img
-				src={userDetails.img?userDetails.img:"profile.png"}
+				src={"/profile.png"}
 				alt=""
 				className="w-[300px] h-[205px] rounded-t-md"
 			/>

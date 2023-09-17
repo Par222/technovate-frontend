@@ -1,17 +1,9 @@
 "use client";
-import NavBar from "@/components/Navbar";
 import DropFileUpload from "@/components/DropFileUpload";
-import { storage } from "@/firebase/firebase";
-import {
-	getDownloadURL,
-	ref,
-	deleteObject,
-	uploadBytes,
-	getMetadata,
-} from "firebase/storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import NavBar from "@/components/NavBar";
 const Onboarding = () => {
 	const blood_groups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -28,107 +20,106 @@ const Onboarding = () => {
 	const [gender, setGender] = useState("");
 	const [blood, setBlood] = useState("A+");
 	const [report, setReport] = useState(null);
-  const [bloodReportUrl, setBloodReportUrl] = useState("")
+	const [bloodReportUrl, setBloodReportUrl] = useState("");
 	const [adhar, setAdhar] = useState(null);
-  const [idUrl, setIdUrl] = useState("")
+	const [idUrl, setIdUrl] = useState("");
 	const [des, setDes] = useState("");
 
-	const getImageURL = async (pdf) => {
-		try {
-			const pdfRef = ref(storage, `blood_report/${pdf.name}`);
-			const imageUploadResponse = await uploadBytes(pdfRef, pdf);
-			const imageDownloadResponse = await getDownloadURL(pdfRef);
-			console.log(imageDownloadResponse);
-			return imageDownloadResponse;
-		} catch (error) {
-			console.log(error, "Err");
-		}
-	};
-	const getAdharUrl = async (pdf) => {
-		try {
-			const pdfRef = ref(storage, `aadhar/${pdf.name}`);
-			const imageUploadResponse = await uploadBytes(pdfRef, pdf);
-			const imageDownloadResponse = await getDownloadURL(pdfRef);
-			console.log(imageDownloadResponse);
-			return imageDownloadResponse;
-		} catch (error) {
-			console.log(error, "Err");
-		}
-	};
+	// const getImageURL = async (pdf) => {
+	// 	try {
+	// 		const pdfRef = ref(storage, `blood_report/${pdf.name}`);
+	// 		const imageUploadResponse = await uploadBytes(pdfRef, pdf);
+	// 		const imageDownloadResponse = await getDownloadURL(pdfRef);
+	// 		console.log(imageDownloadResponse);
+	// 		return imageDownloadResponse;
+	// 	} catch (error) {
+	// 		console.log(error, "Err");
+	// 	}
+	// };
+	// const getAdharUrl = async (pdf) => {
+	// 	try {
+	// 		const pdfRef = ref(storage, `aadhar/${pdf.name}`);
+	// 		const imageUploadResponse = await uploadBytes(pdfRef, pdf);
+	// 		const imageDownloadResponse = await getDownloadURL(pdfRef);
+	// 		console.log(imageDownloadResponse);
+	// 		return imageDownloadResponse;
+	// 	} catch (error) {
+	// 		console.log(error, "Err");
+	// 	}
+	// };
 	const submitHandler = async (e) => {
 		e.preventDefault();
 		const email = localStorage.getItem("email");
 		const password = localStorage.getItem("password");
 		const userType = localStorage.getItem("userType");
 		const user_id = localStorage.getItem("user_id");
-    let data = {}
-    if(userType==='recipient'){
-      data = {
-        _id: user_id,
-			fullname: name,
-			age: age,
-			gender: gender,
-			blood_group: blood,
-			blood_report: bloodReportUrl,
-			aadhar_url: idUrl,
-			medical_history: des,
-		};
-    }
-    else{
-     data = {
-      _id: user_id,
-		fullname: name,
-		age: age,
-		gender: gender,
-		blood_group: blood,
-		blood_report: bloodReportUrl,
-		aadhar_url: idUrl,
-		medical_history: des,
-    organ: ""
-	};
-    }
+		let data = {};
+		if (userType === "recipient") {
+			data = {
+				_id: user_id,
+				fullname: name,
+				age: age,
+				gender: gender,
+				blood_group: blood,
+				blood_report: bloodReportUrl,
+				aadhar_url: idUrl,
+				medical_history: des,
+			};
+		} else {
+			data = {
+				_id: user_id,
+				fullname: name,
+				age: age,
+				gender: gender,
+				blood_group: blood,
+				blood_report: bloodReportUrl,
+				aadhar_url: idUrl,
+				medical_history: des,
+				organ: "",
+			};
+		}
 		const response = await axios.post(
-			`https://technovate-backend.onrender.com/${userType}/onboarding`, data
-			
+			`https://technovate-backend.onrender.com/${userType}/onboarding`,
+			data
 		);
-    try {
-      localStorage.setItem("name", name)
-      localStorage.setItem("age", age)
-      localStorage.setItem("blood_group", blood)
-      localStorage.setItem("gender", gender)
-      if(userType==='recipient'){
-        router.push("/profile");
-      }
-      else{
-        try {
-          const response2 = await axios.post(
-			"https://technovate-backend.onrender.com/hospital/request", {
-        donor_id: data._id
-      })
-      console.log(response2)
-        } catch (error) {
-          console.log(error)
-        }
+		try {
+			localStorage.setItem("name", name);
+			localStorage.setItem("age", age);
+			localStorage.setItem("blood_group", blood);
+			localStorage.setItem("gender", gender);
+			if (userType === "recipient") {
+				router.push("/profile");
+			} else {
+				try {
+					const response2 = await axios.post(
+						"https://technovate-backend.onrender.com/hospital/request",
+						{
+							donor_id: data._id,
+						}
+					);
+					console.log(response2);
+				} catch (error) {
+					console.log(error);
+				}
 
-		;
-        router.push("/donor")
-      }
-    } catch (error) {
-      console.log(error)
-    }
+				router.push("/donor");
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	useEffect(() => {
 		if (adhar) {
-			getAdharUrl(adhar[adhar.length - 1]).then((url) => {
-        setIdUrl(url)
-      });;
+			// getAdharUrl(adhar[adhar.length - 1]).then((url) => {
+			// 	setIdUrl(url);
+			// });
 		}
 	}, [adhar]);
 	useEffect(() => {
 		if (report) {
-			getImageURL(report[report.length - 1]).then((url) => {
-        setBloodReportUrl(url)
-      });
+			// getImageURL(report[report.length - 1]).then((url) => {
+			// 	setBloodReportUrl(url);
+			// });
 			localStorage.setItem(
 				"pdf",
 				URL.createObjectURL(report[report.length - 1])

@@ -13,9 +13,14 @@ export default function Navbar(){
                 <Link href={'/donor/waitlist'}>
                     {waitlist.length ? <button className="text-white border-b-2 border-blue-600 hover:border-white px-2 transition-all duration-100 text-center">Check waitlist</button>:<></>}
                 </Link>
-				<div className="rounded-full w-10 h-10 bg-white text-center">
-					KM
-				</div>
+                
+                <Link href={'/appointment'}>
+                    {waitlist.length ? <button className="text-white border-b-2 border-blue-600 hover:border-white px-2 transition-all duration-100 text-center">Check Appointment</button>:<></>}
+                </Link>
+                <Link href={'/donor/recipient'}>
+                    {waitlist.length ? <button className="text-white border-b-2 border-blue-600 hover:border-white px-2 transition-all duration-100 text-center">Matched Recipient</button>:<></>}
+                </Link>
+
 			</div>
 		</div>
 	);
