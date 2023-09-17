@@ -27,6 +27,17 @@ const Hospital = () => {
       });
     }
   };
+  const [matches, setMatches] = useState();
+  const fetchSummary = async () => {
+    const response = await axios.post(
+      "https://technovate-backend.onrender.com/recipient/match",
+      {
+        recipient_id: localStorage.getItem("user_id"),
+      }
+    );
+    setMatches(response.data.data);
+    console.log(response.data);
+  };
   const fetchNearby = async () => {
     const options = {
       method: "GET",
@@ -59,6 +70,25 @@ const Hospital = () => {
   }, [lat, lng]);
   const [modal, setModal] = useState(false);
   const [applyForSurgery, setApplyForSurgery] = useState(false);
+  const [hospit, setHospital] = useState();
+  const [date, setDate] = useState();
+  const [organ, setOrgan] = useState("");
+  const [doc, setD] = useState();
+  const [reason, setReason] = useState("");
+  const fetchWaiting = async () => {
+    const response = await axios.post(
+      "https://technovate-backend.onrender.com/hospital/appointments",
+      {
+        recipient_id: localStorage.getItem("user_id"),
+        hospital_name: hospit.name,
+        hospital_location: hospit.address,
+        reason: reason,
+        donor_id: doc.donorId._id,
+        date: date,
+      }
+    );
+    console.log(response.data);
+  };
   return (
     <>
       <NavBar></NavBar>
@@ -101,7 +131,11 @@ const Hospital = () => {
                     </button>
                     <button
                       className="mx-3 bg-blue-400 text-white rounded-md py-2 px-3"
-                      onClick={() => setApplyForSurgery(true)}
+                      onClick={() => {
+                        setHospital(h)
+                        setApplyForSurgery(true);
+                        fetchSummary();
+                      }}
                     >
                       Apply for Surgery
                     </button>
@@ -121,6 +155,10 @@ const Hospital = () => {
                       <input
                         className="focus:outline-none border-b-2 border-blue-700 w-[50%] py-1 "
                         placeholder="Type organ name here.."
+                        value={organ}
+                        onChange={(e) => {
+                          setOrgan(e.target.value);
+                        }}
                       ></input>
                       <label className="text-black font-medium my-2">
                         Select Appointment Time
@@ -128,18 +166,18 @@ const Hospital = () => {
                       <input
                         type="datetime-local"
                         className="focus:outline-none border-b-2 border-blue-700 w-[50%] py-1 "
+                        onChange={(e) => setDate(e.target.value)}
                       ></input>
-                       <label className="text-black font-medium my-2">
+                      <label className="text-black font-medium my-2">
                         Provide a Reason for Organ Transplant
                       </label>
                       <textarea
                         type="text"
                         className="focus:outline-none border-2 border-black px-1 w-[50%] py-1"
                         rows={4}
+                        onChange={(e) => setReason(e.target.value)}
                       ></textarea>
                       <div>
-                     
-                        
                         <p className="my-3 font-bold">Check For organ health</p>
                       </div>
                     </form>
@@ -152,15 +190,27 @@ const Hospital = () => {
                 title="Surgery details"
                 textpos="Okay"
                 textneg="Cancel"
-                closeHandler={() => setApplyForSurgery(false)}
+                closeHandler={() =>{ setApplyForSurgery(false)
+                
+                }}
               >
-                <form className="mx-5 my-2 flex flex-col text-sm">
+                <form
+                  className="mx-5 my-2 flex flex-col text-sm"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    fetchWaiting();
+                  }}
+                >
                   <label className="text-black font-medium my-1">
                     Organ Name
                   </label>
                   <input
                     className="focus:outline-none border-b-2 border-blue-700 w-[50%] py-1 "
                     placeholder="Type organ name here.."
+                    value={organ}
+                    onChange={(e) => {
+                      setOrgan(e.target.value);
+                    }}
                   ></input>
                   <label className="text-black font-medium my-2">
                     Select Appointment Time
@@ -168,35 +218,50 @@ const Hospital = () => {
                   <input
                     type="datetime-local"
                     className="focus:outline-none border-b-2 border-blue-700 w-[50%] py-1 "
+                    onChange={(e) => setDate(e.target.value)}
                   ></input>
-                    <label className="text-black font-medium my-2">
-                        Provide a Reason for Organ Transplant
-                      </label>
-                      <textarea
-                        type="text"
-                        className="focus:outline-none border-2 border-black px-1 w-[50%] py-1"
-                        rows={4}
-                      ></textarea>
+                  <label className="text-black font-medium my-2">
+                    Provide a Reason for Organ Transplant
+                  </label>
+                  <textarea
+                    type="text"
+                    className="focus:outline-none border-2 border-black px-1 w-[50%] py-1"
+                    rows={4}
+                    onChange={(e) => setReason(e.target.value)}
+                  ></textarea>
                   <div className="flex flex-col">
                     <p className="my-4 font-bold ">Avaliable Donors</p>
-                    {donors.map((d) => (
-                      <>
-                        <div className="flex justify-between text-xs shadow-md my-2 font-medium items-center py-1 px-5">
-                          <img
-                            src={d.img}
-                            className="w-[50px] h-[50px] rounded-full"
-                          ></img>
-                          <span>{d.name}</span>
-                          <span>{d.gender}</span>
-                          <span>{d.organ}</span>
-                          <span>{d.bloodGroup}</span>
-                          <button className="bg-green-500 text-white py-1 px-3 rounded-md">
-                            Select
-                          </button>
-                        </div>
-                      </>
-                    ))}
+                    {matches &&
+                      matches.map((d) => {
+                        if (d.status == "Rejected") return;
+                        return (
+                          <>
+                            <div className="flex justify-between text-xs shadow-md my-2 font-medium items-center py-1 px-5">
+                              <img
+                                src={"/profile.png"}
+                                className="w-[50px] h-[50px] rounded-full"
+                              ></img>
+                              <span>{d.donorId.fullname}</span>
+                              <span>{d.donorId.gender}</span>
+                              <span>{d.donorId.organ}</span>
+                              <span>{d.donorId.blood_group}</span>
+                              <button
+                                className="bg-green-500 text-white py-1 px-3 rounded-md"
+                                onClick={() => setD(d)}
+                              >
+                                {doc &&
+                                d.donorId.fullname == doc.donorId.fullname
+                                  ? "Remove"
+                                  : "Select"}
+                              </button>
+                            </div>
+                          </>
+                        );
+                      })}
                   </div>
+                  <button type="submit" className="bg-blue-500 text-white py-2 px-4 w-[30%] my-3">
+                    Submit
+                  </button>
                 </form>
               </GenericModal>
             )}

@@ -49,6 +49,8 @@ const Page = () => {
           <div className="grid  grid-cols-2 space-x-6">
             {matches &&
               matches.map((m) => {
+                
+
                 return (
                   <div className="mx-5 shadow-md flex w-[90%] items-center my-5">
                     <img
