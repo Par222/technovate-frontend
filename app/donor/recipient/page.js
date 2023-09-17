@@ -1,6 +1,7 @@
 "use client"
 import Bot from "@/components/bot/Bot";
 import Navbar from "@/components/donor/Navbar";
+import axios from "axios";
 import dynamic from "next/dynamic";
 import { Fragment, useEffect, useState } from "react";
 import "regenerator-runtime/runtime";
@@ -20,6 +21,17 @@ export default function Chat(){
 		healthHistory: [],
 		img: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg",
 	}
+
+	async function getMatchedParticipant(){
+		const response = await axios.post(
+			"https://technovate-backend.onrender.com/recipient/match"
+		);
+		console.log(response)
+	}
+
+	useEffect(() => {
+		getMatchedParticipant()
+	}, [])
 
 	const [rendererList, setRendererList] = useState([]);
 
