@@ -9,7 +9,7 @@ import axios from 'axios';
 import AppointmentModal from '@/components/AppointmentModal';
 import { Sidebar } from '@/components/Sidebar';
 import { useRouter } from 'next/navigation';
-import NavBar from '@/components/Navbar';
+import NavBar from '@/components/NavBar';
 import { useState } from 'react';
 
 export default function home() {
