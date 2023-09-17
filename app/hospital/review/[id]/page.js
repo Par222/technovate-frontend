@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Sidebar } from '@/components/Sidebar';
-import NavBar from '@/components/Navbar';
+import NavBar from '@/components/NavBar';
 import DeclineModal from '@/components/DeclineModal';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
