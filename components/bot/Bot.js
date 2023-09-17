@@ -4,7 +4,7 @@ import BotMessages from './BotMessages';
 import BotIcon from '../../public/bot/botIcons/BotIcon';
 import CloseIcon from '../../public/bot/CloseIcon';
 
-const Bot = ({ showBot, setShowBot, person }) => {
+const Bot = ({ showBot, setShowBot, handleIllegal, person }) => {
   const [msgArray, setMsgArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [msgRes, setMsgRes] = useState('');
@@ -69,6 +69,7 @@ const Bot = ({ showBot, setShowBot, person }) => {
             </div>
             <div className=" absolute bottom-0 w-full ">
               <BotDetail
+                handleIllegal={handleIllegal}
                 person={person}
                 msgArray={msgArray}
                 set={(msg, isLoading) => {

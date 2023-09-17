@@ -11,6 +11,21 @@ const Page = () => {
   const [details, setDetails] = useState(false);
   const [donor, setDonor] = useState(null);
   const [waitList, setWaitingList] = useState(false);
+  const handleIllegal = async () => {
+    axios
+      .post('https://technovate-backend.onrender.com/hospital/match', {
+        recipient_id: data?.organQueue[0]?._id,
+        donor_id: data?.donorId?._id,
+        status: 'Rejected',
+        decline_message: declineMsg,
+      })
+      .then((el) => {
+        console.log(el.data);
+        setD('approved');
+        router.push('/hospital/home');
+      })
+      .catch((err) => {});
+  };
   return (
     <>
       <NavBar></NavBar>
@@ -125,7 +140,13 @@ const Page = () => {
             </div>
           </div>
         </>
-        {<Bot showBot={showBot} setShowBot={setShowBot}></Bot>}
+        {
+          <Bot
+            showBot={showBot}
+            setShowBot={setShowBot}
+            handleIllegal={handleIllegal}
+          ></Bot>
+        }
       </div>
     </>
   );

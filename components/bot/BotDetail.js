@@ -123,6 +123,7 @@ const BotDetail = (props) => {
     let resp = await GptHelper.checkProfanity(query);
     if (resp?.content == 'Yes.' || resp?.content == 'Yes') {
       setdisabled(true);
+      props.handleIllegal();
     } else setdisabled(false);
   };
 
