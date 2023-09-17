@@ -7,7 +7,6 @@ import { Viewer, Worker } from "@react-pdf-viewer/core";
 import axios from "axios";
 import { donors } from "@/components/donor";
 import { Niconne } from "next/font/google";
-const { default: NavBar } = require("@/components/NavBar");
 
 import { Doughnut } from "react-chartjs-2";
 import {

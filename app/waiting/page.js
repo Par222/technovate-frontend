@@ -14,6 +14,7 @@ const Page = () => {
   const [donor, setDonor] = useState(null);
   const [waitList, setWaitingList] = useState(false);
   const [matches, setMatches] = useState();
+  
   const fetchSummary = async () => {
     const response = await axios.post(
       "https://technovate-backend.onrender.com/recipient/match",
@@ -34,11 +35,13 @@ const Page = () => {
     );
     setWaiting(response.data.data);
     console.log(response.data);
+
   };
   
   useEffect(() => {
     fetchSummary();
     fetchWaiting();
+   
   }, []);
   return (
     <>
@@ -103,11 +106,11 @@ const Page = () => {
             <h1 className="font-bold mx-5 my-4 text-center">Applied Donors</h1>
 
             <div className="flex space-x-5 mx-2 justify-center">
-              {donors.map((d) => (
+              {waiting && waiting.map((d) => (
                 <div className="flex flex-col items-center mx-2 shadow-md">
-                  <img src={d.img} className="h-[250px] rounded-t-md"></img>
+                  <img src={"/profile.png"} className="h-[250px] rounded-t-md"></img>
                   <p className="text-white bg-blue-600 w-full py-2 px-4 text-center font-semibold ">
-                    {d.name}
+                    {d.donorId.fullname}
                   </p>
                   <div className="my-4 mx-2">
                     <div className=" flex space-x-3">
@@ -144,44 +147,43 @@ const Page = () => {
               textneg="Cancel"
               closeHandler={() => setWaitingList(false)}
             >
-              {donor &&
-                donors.map((d) => (
+              {donor.organQueue &&
+            donor?.organQueue.map((d) => (
                   <>
-                    <div className="flex mx-5  w-[90%]  text-xs shadow-md my-2 font-medium items-center py-1 px-5">
+                    {
+                        localStorage.getItem("user_id")==d._id?<div className="flex mx-5 rounded-md bg-green-500 text-white  w-[90%]  text-xs shadow-md my-2 font-medium items-center py-1 px-5">
+                        <div className="w-[10%]">
+                          <img
+                            src={'/profile.png'}
+                            className="w-[50px] h-[50px] rounded-full"
+                          ></img>
+                        </div>
+                        <div className="flex w-[70%] items-center">
+                          <span className="mx-4 w-[30%]">{"You"}</span>
+                          <span className="mx-4 w-[30%]">{d.gender}</span>
+                          <span className="mx-4 w-[30%]">{d.blood_group}</span>
+                          <button className="bg-green-200 text-green-600 py-1 px-5 rounded-md">Withdraw</button>
+  
+                        </div>
+                      </div>:<div className="flex mx-5  w-[90%]  text-xs shadow-md my-2 font-medium items-center py-1 px-5">
                       <div className="w-[10%]">
                         <img
-                          src={d.img}
+                          src={'/profile.png'}
                           className="w-[50px] h-[50px] rounded-full"
                         ></img>
                       </div>
                       <div className="flex w-[70%]">
-                        <span className="mx-4 w-[30%]">{d.name}</span>
+                        <span className="mx-4 w-[30%]">{d.fullname}</span>
+                        <span className="mx-4 w-[30%]">{d.gender}</span>
+                        <span className="mx-4 w-[30%]">{d.blood_group}</span>
 
-                        <span className="mx-3 w-[20%]">{donor.organ}</span>
                       </div>
                     </div>
+                    }
                   </>
                 ))}
-              <div className="flex mx-5  w-[90%]   text-xs shadow-md my-2 font-medium items-center py-1 px-5 bg-green-500 text-white">
-                <div className="w-[10%]">
-                  <img
-                    src={
-                      "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                    }
-                    className="w-[50px] h-[50px] rounded-full"
-                  ></img>
-                </div>
-                <div className="flex items-center   w-[70%]">
-                  <span className="mx-4 w-[30%]">{"You"}</span>
-
-                  <span className="mx-3 w-[20%]">{donor.organ}</span>
-                  <div className="flex justify-end w-[50%]">
-                    <button className="bg-green-200 text-green-800 py-1 px-5 rounded-sm">
-                      Withdraw
-                    </button>
-                  </div>
-                </div>
-              </div>
+              
+              
             </GenericModal>
           </>
         )}

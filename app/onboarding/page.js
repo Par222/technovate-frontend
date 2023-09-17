@@ -1,5 +1,5 @@
 "use client";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar";
 import DropFileUpload from "@/components/DropFileUpload";
 import { storage } from "@/firebase/firebase";
 import {

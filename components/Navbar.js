@@ -8,15 +8,18 @@ const NavBar=()=>{
 						OrganConnect
 					</h1>
 				</Link>
-				<nav className="mx-5 w-[20%] flex justify-between font-semibold ">
+				<nav className="mx-5 w-[40%] flex justify-between font-semibold ">
 					<Link href="/profile" className="underline">
 						Home
 					</Link>
 					<Link href="/hospital" className="">
 						Find Hospitals
 					</Link>
-					<Link href="waiting" className="">
+					<Link href="/waiting" className="">
 						Waiting List
+					</Link>
+                    <Link href="/transplant" className="">
+						Transplant
 					</Link>
 				</nav>
 			</div>

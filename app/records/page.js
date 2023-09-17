@@ -1,5 +1,5 @@
 "use client"
-import NavBar from "@/components/NavBar"
+import NavBar from "@/components/Navbar";
 import Import from "@/components/Import"
 import Bot from "@/components/langchain/bot/Bot"
 import "regenerator-runtime/runtime";
